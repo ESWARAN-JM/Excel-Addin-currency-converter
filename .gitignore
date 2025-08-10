@@ -10,9 +10,6 @@ yarn.lock
 
 # Build output
 dist/
-build/
-out/
-
 # Local dev certs (Office Add-in dev cert)
 *.pem
 *.pfx
