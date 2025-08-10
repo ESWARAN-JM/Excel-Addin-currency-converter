@@ -1,0 +1,33 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Build output
+dist/
+build/
+out/
+
+# Local dev certs (Office Add-in dev cert)
+*.pem
+*.pfx
+*.cert
+.certstore/
+
+# Editor / OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Environment & secrets
+.env
+.env.local
+.env.*.local
+secret-*.json
+
+# Logs
+logs/
+*.log
