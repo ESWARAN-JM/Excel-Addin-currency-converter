@@ -1,4 +1,5 @@
 /// <reference types="office-js" />
+import "./taskpane.css";
 import { 
   auth, 
   createDefaultAdmin, 
