@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "/src/taskpane/taskpane.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "/assets/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/src/taskpane/taskpane.html"
+    }
+  ]
+}

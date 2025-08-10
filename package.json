@@ -1,9 +1,11 @@
 {
-  "name": "office-addin-taskpane",
-  "version": "0.0.1",
+  "name": "currency-converter-excel",
+  "version": "1.0.0",
+  "description": "Professional currency conversion tool for Excel",
+  "author": "Eswaran",
   "repository": {
     "type": "git",
-    "url": "https://github.com/OfficeDev/Office-Addin-TaskPane.git"
+    "url": "https://github.com/ESWARAN-JM/Excel-Addin-currency-converter"
   },
   "license": "MIT",
   "config": {

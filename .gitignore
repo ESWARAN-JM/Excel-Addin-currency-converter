@@ -5,6 +5,9 @@ yarn-error.log
 package-lock.json
 yarn.lock
 
+# Vercel
+.vercel/
+
 # Build output
 dist/
 build/
