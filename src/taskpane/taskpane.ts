@@ -19,19 +19,12 @@ import {
   User
 } from "firebase/auth";
 
-declare global {
-  interface Window {
-    Office: any;
-    Excel: any;
-  }
-}
-
-
-
+// Track state for currencies and users
 let isAdminUser = false;
 let usersList: UserData[] = [];
 let selectedUserId = "";
 
+//ExchangeRate Base Api
 const API_BASE = "https://open.er-api.com/v6/latest";
 
 let currentUser: User | null = null;
@@ -39,6 +32,7 @@ let allCurrencies: string[] = [];
 let selectedFromCurrency: string | null = null;
 let selectedToCurrency: string | null = null;
 
+//shows Message for success/error
 function showMessage(elementId: string, text: string, isError: boolean = false) {
   const el = document.getElementById(elementId);
   if (!el) return;
@@ -46,6 +40,7 @@ function showMessage(elementId: string, text: string, isError: boolean = false) 
   el.className = isError ? "message error" : "message success";
 }
 
+//Fetch currency list from API and populate the dropdowns 
 async function loadAllCurrencies(): Promise<void> {
   try {
     const res = await fetch(`${API_BASE}/USD`);
@@ -116,7 +111,6 @@ function initCurrencySelect(type: "from" | "to") {
     }
   });
 
-  // Initial placeholder
   input.value = "";
   input.placeholder = "Select currency";
 }
@@ -221,12 +215,10 @@ showMessage("auth-message", "Welcome!", false);
   document.getElementById("admin-btn")?.addEventListener("click", showUserManagementModal);
   document.getElementById("remove-user-btn")?.addEventListener("click", handleRemoveUser);
   document.getElementById("make-admin-btn")?.addEventListener("click", handleMakeAdmin);
-// Close modal when clicking X
   document.querySelectorAll('.close-modal').forEach(btn => {
     btn.addEventListener("click", closeModals);
   });
 
-  // Close modal when clicking outside
   window.addEventListener("click", (event) => {
     if ((event.target as HTMLElement).className === "modal") {
       closeModals();
@@ -351,18 +343,15 @@ async function handleRemoveUser() {
   try {
     console.log('Attempting to remove user:', selectedUserId);
     
-    // First verify admin status
     const currentUserData = await getUserData(currentUser.uid);
     if (!currentUserData?.isAdmin) {
       throw new Error('You must be an admin to remove users');
     }
 
-    // Additional check - don't allow removing yourself
     if (selectedUserId === currentUser.uid) {
       throw new Error('You cannot remove yourself');
     }
 
-    // Perform the removal
     await removeUser(selectedUserId);
     console.log('User removed successfully');
     
@@ -384,24 +373,20 @@ async function handleMakeAdmin() {
   try {
     console.log('Attempting to change admin status for:', selectedUserId);
     
-    // Verify admin status
     const currentUserData = await getUserData(currentUser.uid);
     if (!currentUserData?.isAdmin) {
       throw new Error('You must be an admin to change user roles');
     }
 
-    // Don't allow changing your own admin status
     if (selectedUserId === currentUser.uid) {
       throw new Error('You cannot change your own admin status');
     }
 
-    // Get current status
     const user = usersList.find(u => u.uid === selectedUserId);
     if (!user) {
       throw new Error('User not found');
     }
 
-    // Toggle admin status
     const newAdminStatus = !user.isAdmin;
     console.log('Setting admin status to:', newAdminStatus);
     
@@ -420,6 +405,7 @@ async function handleMakeAdmin() {
   }
 }
 
+//Initialize the app when office is ready
 window.Office.onReady(() => {
   initializeApp().catch(err => {
     console.error("init error:", err);

@@ -16,6 +16,7 @@ import {
   serverTimestamp
 } from "firebase/firestore";
 
+//FireBase Api Keys
 const firebaseConfig = {
   apiKey: "AIzaSyCgrLHN7hPBDr00fWOFVf0mTlnE3phnolw",
   authDomain: "currency-converter-70b63.firebaseapp.com",
@@ -26,14 +27,19 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+//User Schema
 export interface UserData {
   uid: string;
   email: string;
   displayName: string;
   isAdmin: boolean;
 }
+
+//creates a default account for admin
 export async function createDefaultAdmin() {
   try {
     const userCred = await createUserWithEmailAndPassword(auth, "admin@gmail.com", "Admin@123");
@@ -47,6 +53,7 @@ export async function createDefaultAdmin() {
     console.log("createDefaultAdmin warning:", err);
   }
 }
+
 
 export async function createUserRecord(user: User, name: string, isAdmin = false): Promise<void> {
   await setDoc(doc(db, "users", user.uid), {
