@@ -1,10 +1,10 @@
 {
   "version": 2,
   "builds": [
-    { "src": "dist/**/*", "use": "@vercel/static" }
+    { "src": "package.json", "use": "@vercel/static-build" }
   ],
   "routes": [
-    { "src": "/", "dest": "/dist/taskpane.html" },
-    { "src": "/(.*)", "dest": "/dist/$1" }
+    { "src": "/", "dest": "/taskpane.html" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }
