@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const urlDev = "https://localhost:3000/";
-const urlProd = "https://excel-addin-currency-converter.vercel.app/"; // set to your Vercel URL (update if different)
+const urlProd = "https://excel-addin-currency-converter.vercel.app/"; // <-- your Vercel domain
 
 async function getHttpsOptions() {
   const httpsOptions = await devCerts.getHttpsServerOptions();
@@ -16,17 +16,17 @@ async function getHttpsOptions() {
 module.exports = async (env, options) => {
   const dev = options.mode === "development";
 
-  const config = {
+  return {
     mode: dev ? "development" : "production",
     devtool: dev ? "source-map" : false,
     entry: {
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
-      taskpane: ["./src/taskpane/taskpane.ts", "./src/taskpane/taskpane.html"],
+      taskpane: "./src/taskpane/taskpane.ts",
       commands: "./src/commands/commands.ts",
     },
     output: {
       path: path.resolve(__dirname, "dist"),
-      filename: "[name].js",   // creates taskpane.js, commands.js, polyfill.js
+      filename: "[name].js",
       clean: true,
     },
     resolve: {
@@ -67,9 +67,10 @@ module.exports = async (env, options) => {
     },
     plugins: [
       new MiniCssExtractPlugin({
-        filename: "[name].css", // => dist/taskpane.css
+        filename: "[name].css",
       }),
 
+      // Taskpane HTML
       new HtmlWebpackPlugin({
         filename: "taskpane.html",
         template: "./src/taskpane/taskpane.html",
@@ -77,6 +78,7 @@ module.exports = async (env, options) => {
         inject: "body",
       }),
 
+      // Commands HTML
       new HtmlWebpackPlugin({
         filename: "commands.html",
         template: "./src/commands/commands.html",
@@ -84,6 +86,7 @@ module.exports = async (env, options) => {
         inject: "body",
       }),
 
+      // Copy assets & manifest
       new CopyWebpackPlugin({
         patterns: [
           { from: "assets/*", to: "assets/[name][ext][query]" },
@@ -91,12 +94,9 @@ module.exports = async (env, options) => {
             from: "manifest*.xml",
             to: "[name][ext]",
             transform(content) {
-              // when building production (not dev) we can optionally rewrite URLs
-              if (dev) {
-                return content;
-              } else {
-                return content.toString().replace(new RegExp(urlDev, "g"), urlProd);
-              }
+              return dev
+                ? content
+                : content.toString().replace(new RegExp(urlDev, "g"), urlProd);
             },
           },
         ],
@@ -117,9 +117,7 @@ module.exports = async (env, options) => {
       port: process.env.npm_package_config_dev_server_port || 3000,
     },
     performance: {
-      hints: false, // suppress bundle-size warnings during build
+      hints: false,
     },
   };
-
-  return config;
 };
