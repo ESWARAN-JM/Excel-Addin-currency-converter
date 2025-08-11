@@ -20,9 +20,8 @@ Once loaded, it works seamlessly inside Excel for both Web and Desktop versions.
 ---
 
  🛠 How to Load the Add-in in Excel
-You will receive two files:
-1. `manifest.xml` – The configuration file that tells Excel where the add-in is hosted.
-2. This README – Instructions on how to use it.
+
+ `manifest.xml` – The configuration file that tells Excel where the add-in is hosted.
 
 Follow these steps:
 
