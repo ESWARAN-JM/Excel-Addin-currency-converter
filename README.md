@@ -1,6 +1,5 @@
 Excel Add-in: Currency Converter
 
-📌 Overview
 This Excel Add-in allows users to convert currency values directly within Excel using live exchange rates.  
 It is designed for ease of use and works seamlessly inside Excel without the need for complex formulas.
 
