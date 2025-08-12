@@ -158,8 +158,6 @@ async function convertSelectedCell(): Promise<void> {
         `Converted ${amount} ${fromCurrency} → ${converted.toFixed(2)} ${toCurrency}`, 
         false
       );
-
-      // Reset selections
       resetCurrencySelectors();
     });
   } catch (err: any) {

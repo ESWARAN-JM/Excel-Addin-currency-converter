@@ -8,9 +8,9 @@
   <Description DefaultValue="Convert currencies directly in Excel"/>
   <IconUrl DefaultValue="https://excel-addin-currency-converter.vercel.app/assets/icon-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://excel-addin-currency-converter.vercel.app/assets/icon-64.png"/>
-  <SupportUrl DefaultValue="https://www.contoso.com/help"/>
+  <SupportUrl DefaultValue="https://eswaran-jm.github.io/eswar-portfolio/"/>
   <AppDomains>
-    <AppDomain>https://www.contoso.com</AppDomain>
+    <AppDomain>https://excel-addin-currency-converter.vercel.app</AppDomain>
   </AppDomains>
   <Hosts>
     <Host Name="Workbook"/>
@@ -72,12 +72,12 @@
         <bt:Url id="Taskpane.Url" DefaultValue="https://excel-addin-currency-converter.vercel.app/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="GetStarted.Title" DefaultValue="Get started with your sample add-in!"/>
-        <bt:String id="CommandsGroup.Label" DefaultValue="Commands Group"/>
-        <bt:String id="TaskpaneButton.Label" DefaultValue="Show Task Pane"/>
+        <bt:String id="GetStarted.Title" DefaultValue="Get started currency converter!"/>
+        <bt:String id="CommandsGroup.Label" DefaultValue="Task Pane"/>
+        <bt:String id="TaskpaneButton.Label" DefaultValue="Currency Converter"/>
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="GetStarted.Description" DefaultValue="Your sample add-in loaded successfully. Go to the HOME tab and click the 'Show Task Pane' button to get started."/>
+        <bt:String id="GetStarted.Description" DefaultValue="Your currency converter add-in loaded successfully. Go to the HOME tab and click the 'Currency Coverter' button to get started."/>
         <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Click to Show a Taskpane"/>
       </bt:LongStrings>
     </Resources>
