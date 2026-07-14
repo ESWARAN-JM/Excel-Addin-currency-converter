@@ -26,7 +26,9 @@ const UserSchema = new Schema({
 export const UserModel: mongoose.Model<any> = mongoose.models.User || mongoose.model("User", UserSchema);
 
 // JSON Mock Database Helpers
-const MOCK_DB_PATH = path.join(__dirname, "../../../mock_db.json");
+const MOCK_DB_PATH = process.env.VERCEL
+  ? "/tmp/mock_db.json"
+  : path.join(__dirname, "../../../mock_db.json");
 
 function readMockDb(): IUser[] {
   try {
