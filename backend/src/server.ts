@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.get("/", (req, res) => {
+app.get(["/", "/api"], (req, res) => {
   res.send("Backend running successfully");
 });
 app.use("/api/auth", authRoutes);
