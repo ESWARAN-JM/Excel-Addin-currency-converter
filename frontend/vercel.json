@@ -9,7 +9,7 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "https://excel-addin-currency-converter-3fci.vercel.app/"
+      "dest": "https://excel-addin-currency-converter-3fci.vercel.app/api/$1"
     },
     {
       "src": "/",
