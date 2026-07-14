@@ -1,11 +1,23 @@
 {
   "version": 2,
   "builds": [
-    { "src": "package.json", "use": "@vercel/static-build" }
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build"
+    }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "https://YOUR-BACKEND-DEPLOYMENT-URL.com/api/$1" },
-    { "src": "/", "dest": "/taskpane.html" },
-    { "src": "/(.*)", "dest": "/$1" }
+    {
+      "src": "/api/(.*)",
+      "dest": "https://excel-addin-currency-converter-3fci.vercel.app/"
+    },
+    {
+      "src": "/",
+      "dest": "/taskpane.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
   ]
 }
