@@ -33,8 +33,8 @@ async function startServer() {
   await connectDB();
   await seedDefaultAdmin();
 
-  // If running under Jest test environment, don't start listening
-  if (process.env.NODE_ENV !== "test") {
+  // If running under Jest test environment or Vercel serverless, don't start listening
+  if (process.env.NODE_ENV !== "test" && !process.env.VERCEL) {
     app.listen(PORT, () => {
       console.log(`🚀 Express server running on port ${PORT} in ${process.env.NODE_ENV || "development"} mode.`);
       if (isMockDb) {
