@@ -23,6 +23,8 @@ module.exports = async (env, options) => {
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
       taskpane: "./src/taskpane/taskpane.ts",
       commands: "./src/commands/commands.ts",
+      login: "./src/taskpane/dialogs/login.ts",
+      rates: "./src/taskpane/dialogs/rates.ts",
     },
     output: {
       path: path.resolve(__dirname, "dist"),
@@ -78,6 +80,30 @@ module.exports = async (env, options) => {
         inject: "body",
       }),
 
+      // Login Dialog HTML
+      new HtmlWebpackPlugin({
+        filename: "login.html",
+        template: "./src/taskpane/dialogs/login.html",
+        chunks: ["polyfill", "login"],
+        inject: "body",
+      }),
+
+      // Rates Dialog HTML
+      new HtmlWebpackPlugin({
+        filename: "rates.html",
+        template: "./src/taskpane/dialogs/rates.html",
+        chunks: ["polyfill", "rates"],
+        inject: "body",
+      }),
+
+      // Message Dialog HTML
+      new HtmlWebpackPlugin({
+        filename: "message.html",
+        template: "./src/taskpane/dialogs/message.html",
+        chunks: ["polyfill"],
+        inject: "body",
+      }),
+
       // Commands HTML
       new HtmlWebpackPlugin({
         filename: "commands.html",
@@ -103,6 +129,14 @@ module.exports = async (env, options) => {
       }),
     ],
     devServer: {
+      proxy: [
+        {
+          context: ["/api"],
+          target: "http://localhost:5000",
+          secure: false,
+          changeOrigin: true,
+        },
+      ],
       static: {
         directory: path.join(__dirname, "dist"),
       },

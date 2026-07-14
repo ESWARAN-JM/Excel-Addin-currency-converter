@@ -31,3 +31,7 @@ secret-*.json
 # Logs
 logs/
 *.log
+
+# Mock DB
+*db.json
+

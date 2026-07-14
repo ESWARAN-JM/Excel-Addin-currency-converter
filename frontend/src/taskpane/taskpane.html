@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Currency Converter Dashboard</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+</head>
+
+<body>
+  <div class="main-container">
+    <!-- Skeleton Overlay Loader (hidden when loaded) -->
+    <div id="skeleton-loader" class="skeleton-overlay">
+      <div class="skeleton-header">
+        <div class="skeleton-line pulse" style="width: 40%; height: 20px;"></div>
+        <div class="skeleton-line pulse" style="width: 15%; height: 20px;"></div>
+      </div>
+      <div class="skeleton-line pulse" style="width: 80%; height: 32px; margin-top: 24px;"></div>
+      <div class="skeleton-line pulse" style="width: 90%; height: 16px; margin-bottom: 32px;"></div>
+      <div class="skeleton-line pulse" style="width: 100%; height: 40px; margin-bottom: 12px;"></div>
+      <div class="skeleton-line pulse" style="width: 100%; height: 40px; margin-bottom: 12px;"></div>
+      <div class="skeleton-line pulse" style="width: 100%; height: 40px; display: none;" id="extra-skeleton"></div>
+    </div>
+
+    <!-- Logged Out Mode -->
+    <div id="logged-out-view" class="logged-out-view" style="display: none;">
+      <div class="hero-icon">💱</div>
+      <h2 class="app-title">Convert Currencies</h2>
+      <p class="app-description">
+        Access real-time currency rates, execute conversions across cell values, and generate professional reports inside Excel.
+      </p>
+      <fluent-button id="login-dialog-trigger" appearance="accent">Log In / Register</fluent-button>
+    </div>
+
+    <!-- Logged In Mode -->
+    <div id="logged-in-view" class="logged-in-view" style="display: none;">
+      <div class="welcome-bar">
+        <div class="welcome-text">
+          Hello, <span id="user-display-name">Guest</span>
+        </div>
+        <fluent-button id="logout-btn" appearance="stealth" style="width: auto;">Logout</fluent-button>
+      </div>
+
+      <div class="actions-grid">
+        <fluent-button id="open-rates-dialog" appearance="accent">Exchange Rates</fluent-button>
+        <fluent-button id="refresh-sheet-btn" appearance="neutral">Refresh Active Sheet</fluent-button>
+      </div>
+    </div>
+
+    <div id="message-banner" class="message"></div>
+
+    <div class="footer-note">
+      Currency Converter Add-in v1.0.0
+    </div>
+  </div>
+</body>
+
+</html>

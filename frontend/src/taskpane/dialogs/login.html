@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login / Register</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <style>
+    :root {
+      --fill-color: #fafafa;
+      --accent-color: #0078d4;
+      --text-color: #323130;
+      --card-bg: #ffffff;
+      --border-color: #edebe9;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--fill-color);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 320px;
+      padding: 24px;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-weight: 600;
+      font-size: 20px;
+      color: #201f1e;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    fluent-text-field {
+      width: 100%;
+    }
+
+    .btn-container {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    fluent-button {
+      width: 100%;
+    }
+
+    .switch-link {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 13px;
+    }
+
+    .switch-link a {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .switch-link a:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .message {
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 13px;
+      margin-top: 16px;
+      text-align: center;
+      display: none;
+    }
+
+    .message.error {
+      background-color: #fde7e9;
+      color: #a80000;
+      border: 1px solid #fde7e9;
+      display: block;
+    }
+
+    .message.success {
+      background-color: #dff6dd;
+      color: #107c41;
+      border: 1px solid #dff6dd;
+      display: block;
+    }
+
+    /* Skeleton Loading CSS */
+    .skeleton-container {
+      display: none;
+    }
+
+    .skeleton-field {
+      height: 32px;
+      margin-bottom: 16px;
+      border-radius: 4px;
+    }
+
+    .skeleton-btn {
+      height: 36px;
+      border-radius: 4px;
+      margin-top: 24px;
+    }
+
+    .pulse {
+      background: linear-gradient(-90deg, #f0f0f0 0%, #e1e1e1 50%, #f0f0f0 100%);
+      background-size: 400% 400%;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Skeleton loader shown during form processing/validation -->
+    <div id="skeleton-loader" class="skeleton-container">
+      <div class="skeleton-field pulse" style="width: 60%; margin: 0 auto 24px auto; height: 24px;"></div>
+      <div class="skeleton-field pulse"></div>
+      <div class="skeleton-field pulse"></div>
+      <div class="skeleton-field pulse" id="skeleton-name-field" style="display: none;"></div>
+      <div class="skeleton-btn pulse"></div>
+      <div class="skeleton-btn pulse" style="height: 32px; margin-top: 8px;"></div>
+    </div>
+
+    <!-- Active Form View -->
+    <div id="form-content">
+      <h2 id="title">Log In</h2>
+
+      <!-- Register Mode only: Name -->
+      <div class="form-group" id="name-group" style="display: none;">
+        <fluent-text-field id="name" placeholder="Enter your full name">Name</fluent-text-field>
+      </div>
+
+      <div class="form-group">
+        <fluent-text-field id="email" type="email" placeholder="name@example.com">Email</fluent-text-field>
+      </div>
+
+      <div class="form-group">
+        <fluent-text-field id="password" type="password" placeholder="••••••••">Password</fluent-text-field>
+      </div>
+
+      <div class="btn-container">
+        <fluent-button id="auth-btn" appearance="accent">Log In</fluent-button>
+      </div>
+
+      <div class="switch-link">
+        <span id="switch-text">New user?</span>
+        <a id="toggle-auth-link">Create Account</a>
+      </div>
+
+      <div id="message-banner" class="message"></div>
+    </div>
+  </div>
+</body>
+
+</html>

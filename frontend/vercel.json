@@ -4,6 +4,7 @@
     { "src": "package.json", "use": "@vercel/static-build" }
   ],
   "routes": [
+    { "src": "/api/(.*)", "dest": "https://YOUR-BACKEND-DEPLOYMENT-URL.com/api/$1" },
     { "src": "/", "dest": "/taskpane.html" },
     { "src": "/(.*)", "dest": "/$1" }
   ]

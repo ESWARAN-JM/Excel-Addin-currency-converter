@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Notification</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <style>
+    :root {
+      --fill-color: #fafafa;
+      --accent-color: #0078d4;
+      --accent-hover: #106ebe;
+      --text-color: #323130;
+      --card-bg: #ffffff;
+      --border-color: #edebe9;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: var(--fill-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      box-sizing: border-box;
+      justify-content: space-between;
+    }
+
+    .content-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+
+    .message-text {
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      color: #201f1e;
+      font-weight: 500;
+    }
+
+    .btn-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    button {
+      background-color: var(--accent-color);
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      min-width: 80px;
+      transition: background-color 0.15s ease;
+    }
+
+    button:hover {
+      background-color: var(--accent-hover);
+    }
+
+    button:active {
+      background-color: #005a9e;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="content-area">
+    <div id="icon" class="icon">ℹ️</div>
+    <div id="msg-text" class="message-text">Loading message...</div>
+  </div>
+  <div class="btn-container">
+    <button id="ok-btn">OK</button>
+  </div>
+
+  <script>
+    Office.onReady(() => {
+      // Parse query string parameters
+      const params = new URLSearchParams(window.location.search);
+      const msg = params.get("msg") || "";
+      const isErr = params.get("err") === "true";
+
+      document.getElementById("msg-text").textContent = msg;
+
+      const iconEl = document.getElementById("icon");
+      if (isErr) {
+        iconEl.textContent = "";
+        document.title = "Error";
+      } else {
+        iconEl.textContent = "";
+        document.title = "Success";
+      }
+
+      document.getElementById("ok-btn").addEventListener("click", () => {
+        Office.context.ui.messageParent(JSON.stringify({ type: "CLOSE_MESSAGE_DIALOG" }));
+      });
+    });
+  </script>
+</body>
+
+</html>
