@@ -1,29 +1,39 @@
-import { describe, it, expect, beforeAll, afterAll } from "@jest/globals";
+import { describe, it, expect, beforeAll, afterAll, jest } from "@jest/globals";
 import request from "supertest";
 import app from "./server";
-import fs from "fs";
-import path from "path";
 import { disconnectDB } from "./db";
-
-const MOCK_DB_PATH = path.join(__dirname, "../../../mock_db.json");
+import * as UserMethods from "./models/User";
 
 describe("Express Backend API Tests", () => {
-  let backupDbContent: string | null = null;
+  const mockUsers: any[] = [];
 
   beforeAll(() => {
-    // Backup existing mock database if it exists
-    if (fs.existsSync(MOCK_DB_PATH)) {
-      backupDbContent = fs.readFileSync(MOCK_DB_PATH, "utf-8");
-    }
+    // Mock the database CRUD methods to avoid external database dependency during testing
+    jest.spyOn(UserMethods, "findUserByEmail").mockImplementation(async (email) => {
+      const found = mockUsers.find((u) => u.email === email.toLowerCase());
+      return found ? { ...found } : null;
+    });
+
+    jest.spyOn(UserMethods, "createUser").mockImplementation(async (userData) => {
+      const newUser = {
+        id: "mock-test-id-" + Math.random().toString(36).substring(2),
+        name: userData.name,
+        email: userData.email.toLowerCase(),
+        password: userData.password,
+        isAdmin: userData.isAdmin || false,
+        createdAt: new Date().toISOString(),
+      };
+      mockUsers.push(newUser);
+      return { ...newUser };
+    });
+
+    jest.spyOn(UserMethods, "findUserById").mockImplementation(async (id) => {
+      const found = mockUsers.find((u) => u.id === id);
+      return found ? { ...found } : null;
+    });
   });
 
   afterAll(async () => {
-    // Restore backup
-    if (backupDbContent !== null) {
-      fs.writeFileSync(MOCK_DB_PATH, backupDbContent);
-    } else if (fs.existsSync(MOCK_DB_PATH)) {
-      fs.unlinkSync(MOCK_DB_PATH);
-    }
     await disconnectDB();
   });
 

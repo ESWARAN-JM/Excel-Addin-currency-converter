@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { connectDB, isMockDb } from "./db";
+import { connectDB } from "./db";
 import { seedDefaultAdmin } from "./models/User";
 import authRoutes from "./routes/auth";
 import ratesRoutes from "./routes/rates";
@@ -26,7 +26,7 @@ app.use("/api/rates", ratesRoutes);
 app.get("/api/health", (req, res) => {
   res.json({
     status: "ok",
-    database: isMockDb ? "local-mock" : "mongodb-atlas",
+    database: "mongodb-atlas",
     timestamp: new Date()
   });
 });
@@ -40,9 +40,6 @@ async function startServer() {
   if (process.env.NODE_ENV !== "test" && !process.env.VERCEL) {
     app.listen(PORT, () => {
       console.log(`🚀 Express server running on port ${PORT} in ${process.env.NODE_ENV || "development"} mode.`);
-      if (isMockDb) {
-        console.log("ℹ️ Mock DB fallback active. Database state is stored in root 'mock_db.json'.");
-      }
     });
   }
 }

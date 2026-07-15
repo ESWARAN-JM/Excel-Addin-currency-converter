@@ -3,37 +3,22 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export let isMockDb = false;
-
 export async function connectDB(): Promise<void> {
   if (process.env.NODE_ENV === "test") {
-    isMockDb = true;
     return;
   }
 
   const uri = process.env.MONGODB_URI;
-  if (!uri || uri.includes("example.mongodb.net") || uri.includes("dummy")) {
-    console.warn("⚠️ No valid MongoDB URI found. Falling back to local JSON database.");
-    isMockDb = true;
-    return;
+  if (!uri) {
+    throw new Error("Missing MONGODB_URI environment variable.");
   }
 
-  try {
-    // Set a short connection timeout so it fails quickly if the URI is invalid/unreachable
-    await mongoose.connect(uri, {
-      serverSelectionTimeoutMS: 3000,
-    });
-    console.log("✅ Connected to MongoDB Atlas.");
-    isMockDb = false;
-  } catch (error) {
-    console.error("❌ MongoDB Atlas connection error:", error);
-    console.warn("⚠️ Falling back to local JSON database.");
-    isMockDb = true;
-  }
+  await mongoose.connect(uri);
+  console.log("✅ Connected to MongoDB Atlas.");
 }
 
 export async function disconnectDB(): Promise<void> {
-  if (!isMockDb) {
+  if (mongoose.connection.readyState !== 0) {
     await mongoose.disconnect();
   }
 }
